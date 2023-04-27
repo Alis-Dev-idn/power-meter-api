@@ -1,0 +1,27 @@
+name: Deploy Application
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy-application:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: '16'
+
+      - name: Build Application
+        run: |
+          npm install
+          npm run build
+
+      - name: Upload app bundle
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: release_artifacts
+          path: |
+            ${{ github.workspace }}/buildApp/power-meter-api-linux
+            ${{ github.workspace }}/buildApp/power-meter-api-win.exe

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "NodeNext",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "removeComments": false,
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
+  },
+  "include": ["src/**/*"]
+}
