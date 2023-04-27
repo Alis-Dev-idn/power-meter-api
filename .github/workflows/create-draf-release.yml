@@ -1,8 +1,9 @@
 name: 🚀 Deploy Application
+
 on:
   push:
-    branches:
-      - main
+    tags: "*"
+
 jobs:
   deploy-application:
     name: 🎉 Deploy
@@ -28,3 +29,16 @@ jobs:
           path: |
             ${{ github.workspace }}/buildApp/power-meter-api-linux
             ${{ github.workspace }}/buildApp/power-meter-api-win.exe
+
+      - name: Create draft release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: ${{ github.workspace }}/buildApp/power-meter-api-linux, ${{ github.workspace }}/buildApp/power-meter-api-win.exe
+          commit: ${{ github.sha }}
+          draft: true
+          prerelease: ${{ steps.get-pm-version.outputs.PRERELEASE }}
+          name: Meter API ${{ steps.get-pm-version.outputs.PM_VERSION }}
+          token: ${{ secrets.TOKEN_GITHUB }}
+          tag: ${{ steps.get-pm-version.outputs.PM_VERSION }}
+          body: |
+            ** API for Application Meter Current **
